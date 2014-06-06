@@ -1,4 +1,4 @@
-% ==== PCANet Demo =======
+%==== PCANet Demo =======
 % T.-H. Chan, K. Jia, S. Gao, J. Lu, Z. Zeng, and Y. Ma, 
 % "PCANet: A simple deep learning baseline for image classification?" submitted to IEEE TPAMI. 
 % ArXiv eprint: http://arxiv.org/abs/1404.3606 
@@ -21,8 +21,7 @@ PCANet.PatchSize = 7;
 PCANet.NumFilters = [8 8];
 PCANet.HistBlockSize = [8 6]; 
 PCANet.BlkOverLapRatio = 0.5;
-PCANet.Lamda = 0.7;
-
+PCANet.Lamda = 10;
 
 DataSplitsAddrPre = './YALE64/2Train/';
 
@@ -119,7 +118,7 @@ fprintf('\n ===== Results of PCANet, followed by a linear SVM classifier =====')
 fprintf('\n     PCANet training time: %.2f secs.', PCANet_TrnTime);
 fprintf('\n     Average testing error rate: %.2f%%', 100*mean(F_err));
 fprintf('\n     Average testing time %.2f secs per test sample. \n\n',Averaged_TimeperTest);
-save('YALE64_2_manifold_0.7.mat','F_acc','F_err','PCANet','V');
+save('YALE64_2_manifold_10.mat','F_acc','F_err','PCANet','V');
 
 
 
