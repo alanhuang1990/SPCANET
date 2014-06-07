@@ -13,25 +13,32 @@ addpath('./Liblinear');
 
 
 TrnSize = 165; 
-ImgSize = 64; 
+ImgSize = 32; 
 ImgFormat = 'gray'; %'color' or 'gray'
+
+DataSplitsAddrPre = './YALE64/';
+
+F_acc = [];
+F_err = [];
+load('./YALE64/Yale_32x32.mat'); 
 
 PCANet.NumStages = 2;
 PCANet.PatchSize = 7;
 PCANet.NumFilters = [8 8];
 PCANet.HistBlockSize = [8 6]; 
 PCANet.BlkOverLapRatio = 0.5;
+<<<<<<< HEAD
 PCANet.Lamda = 10;
 
 DataSplitsAddrPre = './YALE64/2Train/';
+=======
+PCANet.Lamda = 0.6;
+>>>>>>> dee1c640072e3de041df8291765fc9c8595dea4d
 
-F_acc = [];
-F_err = [];
-load('./YALE64/Yale_64x64.mat'); 
 % load Yale (64x64) data
-for itr = 1:50
-        load('./YALE64/Yale_64x64.mat'); 
-        DataSplitsAddr = [DataSplitsAddrPre int2str(itr) '.mat'];
+for train_num = 2:8
+    for itr = 1:50
+        DataSplitsAddr = [DataSplitsAddrPre int2str(train_num) 'Train/' int2str(itr) '.mat'];
 
         %fprintf(DataSplitsAddr);
         load(DataSplitsAddr);
@@ -112,7 +119,17 @@ for itr = 1:50
         F_acc = [Accuracy;F_acc];
         F_err = [ErRate; F_err];
         fprintf('\n     Testing error rate for split %d : %.2f%%',itr, 100*ErRate);
+        
+    end 
+    %% Results display
+    fprintf('\n ===== Results of PCANet, followed by a linear SVM classifier =====');
+    fprintf('\n     PCANet training time: %.2f secs.', PCANet_TrnTime);
+    fprintf('\n     Average testing error rate: %.2f%%', 100*mean(F_err));
+    fprintf('\n     Average testing time %.2f secs per test sample. \n\n',Averaged_TimeperTest);
+    
+    save(['YALE32_' int2str(train_num) '_manifold_' num2str(PCANet.Lamda) '.mat'],'F_acc','F_err','PCANet','V');
 end 
+<<<<<<< HEAD
 %% Results display
 fprintf('\n ===== Results of PCANet, followed by a linear SVM classifier =====');
 fprintf('\n     PCANet training time: %.2f secs.', PCANet_TrnTime);
@@ -120,6 +137,8 @@ fprintf('\n     Average testing error rate: %.2f%%', 100*mean(F_err));
 fprintf('\n     Average testing time %.2f secs per test sample. \n\n',Averaged_TimeperTest);
 save('YALE64_2_manifold_10.mat','F_acc','F_err','PCANet','V');
 
+=======
+>>>>>>> dee1c640072e3de041df8291765fc9c8595dea4d
 
 
 
