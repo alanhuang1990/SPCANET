@@ -27,13 +27,9 @@ PCANet.PatchSize = 7;
 PCANet.NumFilters = [8 8];
 PCANet.HistBlockSize = [8 6]; 
 PCANet.BlkOverLapRatio = 0.5;
-<<<<<<< HEAD
-PCANet.Lamda = 10;
 
-DataSplitsAddrPre = './YALE64/2Train/';
-=======
 PCANet.Lamda = 0.6;
->>>>>>> dee1c640072e3de041df8291765fc9c8595dea4d
+
 
 % load Yale (64x64) data
 for train_num = 2:8
@@ -129,16 +125,6 @@ for train_num = 2:8
     
     save(['YALE32_' int2str(train_num) '_manifold_' num2str(PCANet.Lamda) '.mat'],'F_acc','F_err','PCANet','V');
 end 
-<<<<<<< HEAD
-%% Results display
-fprintf('\n ===== Results of PCANet, followed by a linear SVM classifier =====');
-fprintf('\n     PCANet training time: %.2f secs.', PCANet_TrnTime);
-fprintf('\n     Average testing error rate: %.2f%%', 100*mean(F_err));
-fprintf('\n     Average testing time %.2f secs per test sample. \n\n',Averaged_TimeperTest);
-save('YALE64_2_manifold_10.mat','F_acc','F_err','PCANet','V');
-
-=======
->>>>>>> dee1c640072e3de041df8291765fc9c8595dea4d
 
 
 
