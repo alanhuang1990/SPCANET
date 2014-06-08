@@ -1,4 +1,4 @@
-%==== PCANet Demo =======
+%=== PCANet Demo =======
 % T.-H. Chan, K. Jia, S. Gao, J. Lu, Z. Zeng, and Y. Ma, 
 % "PCANet: A simple deep learning baseline for image classification?" submitted to IEEE TPAMI. 
 % ArXiv eprint: http://arxiv.org/abs/1404.3606 
@@ -28,7 +28,7 @@ PCANet.NumFilters = [8 8];
 PCANet.HistBlockSize = [8 6]; 
 PCANet.BlkOverLapRatio = 0.5;
 
-PCANet.Lamda = 0.6;
+PCANet.Lamda = 1;
 
 
 % load Yale (64x64) data
