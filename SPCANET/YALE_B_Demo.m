@@ -92,7 +92,7 @@ for itr_train = 1:length(t_num)
 
         tic; 
         for idx = 1:1:nTestImg
-            idx
+            
             ftest = PCANet_FeaExt(TestData_ImgCell(idx),V,PCANet); % extract a test feature using trained PCANet model 
 
 
