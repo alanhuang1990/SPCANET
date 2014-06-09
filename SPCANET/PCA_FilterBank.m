@@ -33,7 +33,9 @@ Rx = zeros(NumChls*PatchSize^2,NumChls*PatchSize^2);
 for i = RandIdx 
     im = im2col_general(InImg{i},[PatchSize PatchSize]); % collect all the patches of the ith image in a matrix
     im = bsxfun(@minus, im, mean(im)); % patch-mean removal 
-    S = getConnectivityMatrix(im,[PatchSize PatchSize],size(InImg{1}),[0 1 0; 1 0 1; 0 1 0]);
+    [row_v, col_v,value_v,size_v] = getConnectivityMatrixSparse(im,[PatchSize PatchSize],size(InImg{1}),[0 1 0; 1 0 1; 0 1 0]);
+    S = sparse(row_v, col_v,value_v,size_v(1),size_v(2));
+    %S = getConnectivityMatrix(im,[PatchSize PatchSize],size(InImg{1}),[0 1 0; 1 0 1; 0 1 0]);
     D = diag(sum(S));
     Rx = Rx + im*(D-S-eye(size(S,1))/lamda)*im'; % sum of all the input images' covariance matrix
 end
