@@ -28,7 +28,7 @@ PCANet.NumFilters = [8 8];
 PCANet.HistBlockSize = [8 6]; 
 PCANet.BlkOverLapRatio = 0.5;
 
-PCANet.Lamda = 0.1;
+PCANet.Lamda = 1;
 
 t_num = [5 10 20 30 40 50];
 
@@ -92,7 +92,7 @@ for itr_train = 1:length(t_num)
 
         tic; 
         for idx = 1:1:nTestImg
-            idx
+            
             ftest = PCANet_FeaExt(TestData_ImgCell(idx),V,PCANet); % extract a test feature using trained PCANet model 
 
 

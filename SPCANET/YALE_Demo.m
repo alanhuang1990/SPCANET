@@ -13,14 +13,14 @@ addpath('./Liblinear');
 
 
 TrnSize = 165; 
-ImgSize = 32; 
+ImgSize = 64; 
 ImgFormat = 'gray'; %'color' or 'gray'
 
 DataSplitsAddrPre = './YALE64/';
 
 F_acc = [];
 F_err = [];
-load('./YALE64/Yale_32x32.mat'); 
+load('./YALE64/Yale_64x64.mat'); 
 
 PCANet.NumStages = 2;
 PCANet.PatchSize = 7;
@@ -28,7 +28,7 @@ PCANet.NumFilters = [8 8];
 PCANet.HistBlockSize = [8 6]; 
 PCANet.BlkOverLapRatio = 0.5;
 
-PCANet.Lamda = 1;
+PCANet.Lamda = 0.7;
 
 
 % load Yale (64x64) data
@@ -123,7 +123,7 @@ for train_num = 2:8
     fprintf('\n     Average testing error rate: %.2f%%', 100*mean(F_err));
     fprintf('\n     Average testing time %.2f secs per test sample. \n\n',Averaged_TimeperTest);
     
-    save(['YALE32_' int2str(train_num) '_manifold_' num2str(PCANet.Lamda) '.mat'],'F_acc','F_err','PCANet','V');
+    save(['YALE64_' int2str(train_num) '_manifold_' num2str(PCANet.Lamda) '.mat'],'F_acc','F_err','PCANet','V');
 end 
 
 
