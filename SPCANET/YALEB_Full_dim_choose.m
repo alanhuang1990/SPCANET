@@ -162,7 +162,7 @@ for itr_train = 1:length(t_num)
     fprintf('\n     PCANet training time: %.2f secs.', PCANet_TrnTime);
     fprintf('\n     Average testing error rate: %.2f%%', 100*mean(F_err));
     fprintf('\n     Average testing time %.2f secs per test sample. \n\n',Averaged_TimeperTest);
-    save(['YALEB32_' int2str(train_num) '_manifold_PCA_dfull' num2str(PCANet.Lamda) '.mat'],'F_dims','F_acc','F_err','PCANet','V');
+    save(['YALEB32_' int2str(train_num) '_manifold_PCA_dfull_' num2str(PCANet.Lamda) '.mat'],'F_dims','F_acc','F_err','PCANet','V');
     %save(['YALEB32_Manifold_PCA_' int2str(train_num) '_d_Full' '_''_PCANET.mat'],'F_dims','F_acc','F_err','PCANet','V');
 end 
 
