@@ -38,7 +38,7 @@ PCANet.Lamda=0.8;
 
 t_num = [5 10 20 30 40 50];
 
-for itr_train = 1:length(t_num)
+for itr_train = 6:length(t_num)
     train_num = t_num(itr_train);
 
     F_acc = [];
@@ -155,6 +155,7 @@ for itr_train = 1:length(t_num)
             %PCA_errors = [PCA_errors ErRate];
             %fprintf('\n     Testing error rate for split %d : %.2f%%',itr, 100*ErRate);
             fprintf('\n     Testing error rate for split %d with dim=%d : %.2f%%',itr,dim, 100*ErRate);
+            clear TrnData TrnLabels TestData TestLabels PCA_V_max ftrain PCA_V PCA_ftrain ;
 
     end 
     %% Results display
@@ -162,7 +163,7 @@ for itr_train = 1:length(t_num)
     fprintf('\n     PCANet training time: %.2f secs.', PCANet_TrnTime);
     fprintf('\n     Average testing error rate: %.2f%%', 100*mean(F_err));
     fprintf('\n     Average testing time %.2f secs per test sample. \n\n',Averaged_TimeperTest);
-    save(['YALEB32_' int2str(train_num) '_manifold_PCA_dfull' num2str(PCANet.Lamda) '.mat'],'F_dims','F_acc','F_err','PCANet','V');
+    save(['YALEB32_' int2str(train_num) '_manifold_PCA_dfull_' num2str(PCANet.Lamda) '.mat'],'F_dims','F_acc','F_err','PCANet','V');
     %save(['YALEB32_Manifold_PCA_' int2str(train_num) '_d_Full' '_''_PCANET.mat'],'F_dims','F_acc','F_err','PCANet','V');
 end 
 
