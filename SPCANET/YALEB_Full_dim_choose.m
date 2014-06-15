@@ -105,11 +105,11 @@ for itr_train = 6:length(t_num)
         
         
         %% PCANet Feature Extraction and Testing 
-        fprintf('\nExtracting training image feature...');
-        TrnData_ImgCell = mat2imgcell(TrnData,ImgSize,ImgSize,ImgFormat);
-        clear TrnData; 
-        [ftrain BlkIdx] = PCANet_FeaExt(TrnData_ImgCell,V,PCANet);
-        clear TrnData_ImgCell; 
+
+
+ 
+
+
 
 
         ftrain = ftrain';
