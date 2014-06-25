@@ -41,7 +41,7 @@ for i = RandIdx
 end
 Rx = Rx/(NumRSamples*size(im,2));
 [E D] = eig(Rx);
-[trash ind] = sort(abs(diag(D)),'descend');
+[trash ind] = sort((diag(D)),'ascend');
 % I add some codes for whitening
 
 V = E(:,ind(1:NumFilters));  % principal eigenvectors 

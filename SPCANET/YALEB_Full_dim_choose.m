@@ -34,11 +34,11 @@ PCANet.PatchSize = 7;
 PCANet.NumFilters = [8 8];
 PCANet.HistBlockSize = [8 6]; 
 PCANet.BlkOverLapRatio = 0.5;
-PCANet.Lamda=0.8;
+PCANet.Lamda=100000;
 
 t_num = [5 10 20 30 40 50];
 
-for itr_train = 6:length(t_num)
+for itr_train = 1:length(t_num)
     train_num = t_num(itr_train);
 
     F_acc = [];
