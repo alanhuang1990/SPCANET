@@ -39,6 +39,8 @@ for i = RandIdx
     D = diag(sum(S));
     Rx = Rx + im*(D-S-eye(size(S,1))/lamda)*im'; % sum of all the input images' covariance matrix
 end
+S=[];
+D=[];
 Rx = Rx/(NumRSamples*size(im,2));
 [E D] = eig(Rx);
 [trash ind] = sort((diag(D)),'ascend');

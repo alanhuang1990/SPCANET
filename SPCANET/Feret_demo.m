@@ -55,7 +55,7 @@ clear TrnData_ImgCell;
 max_dim = (min(size(ftrain))-1);
 fprintf('Perform PCA on image feature...');
 PCA_V_max = PCA(ftrain', max_dim,1,10000);
-dim = 1000;
+dim = max_dim;
 
 %% PCANET Testing
 

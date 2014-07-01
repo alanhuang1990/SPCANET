@@ -85,9 +85,12 @@ void  make_connectivity_at(vector<double> & row_vec,vector<double> & col_vec,vec
             int id_b = j_col * row_connectivity + i_row;
             //printf("id_a: %d    id_b: %d \n",id_a,id_b);
             int value = filter(i_row - row_id + half_row_width, j_col - col_id + half_col_width );
-            row_vec.push_back(id_a+1);
-            col_vec.push_back(id_b+1);
-            value_vec.push_back(value);
+            if (value != 0)
+            {
+                row_vec.push_back(id_a+1);
+                col_vec.push_back(id_b+1);
+                value_vec.push_back(value);
+            }
             
         }
     }
