@@ -21,8 +21,8 @@ PCANet.NumStages = 2;
 PCANet.PatchSize = 7;
 PCANet.NumFilters = [8 8];
 PCANet.HistBlockSize = [15 15]; 
-PCANet.BlkOverLapRatio = 0.3;
-PCANet.Lamda = 0.1;
+PCANet.BlkOverLapRatio = 0;
+PCANet.Lamda = 1;
 fprintf('\n ====== PCANet Parameters ======= \n')
 PCANet
 
@@ -47,7 +47,7 @@ end
 clear fea gnd;
 
 %% PCANet Training 
-
+tic;
 fprintf('\n ====== PCANet Training ======= \n')
 [ftrain V BlkIdx] = PCANet_train(TrnData_ImgCell,PCANet,1); % BlkIdx serves the purpose of learning block-wise DR projection matrix; e.g., WPCA
 PCANet_TrnTime = toc;
@@ -55,7 +55,7 @@ clear TrnData_ImgCell;
 max_dim = (min(size(ftrain))-1);
 fprintf('Perform PCA on image feature...');
 PCA_V_max = PCA(ftrain', max_dim,1,10000);
-dim = 1000;
+dim = max_dim;
 
 %% PCANET Testing
 
@@ -92,4 +92,4 @@ fprintf('\n ===== Results of PCANet, followed by a linear SVM classifier =====')
 fprintf('\n     PCANet training time: %.2f secs.', PCANet_TrnTime);
 fprintf('\n     Average testing error rate: %.2f%%',ErRate*100);
 fprintf('\n     Average testing time %.2f secs per test sample. \n\n',Averaged_TimeperTest);
-
+save('feret_spcanet_1.mat','PCANet','ErRate');
