@@ -22,7 +22,7 @@ PCANet.PatchSize = 7;
 PCANet.NumFilters = [8 8];
 PCANet.HistBlockSize = [15 15]; 
 PCANet.BlkOverLapRatio = 0;
-PCANet.Lamda = 1;
+PCANet.Lamda = 0.3;
 fprintf('\n ====== PCANet Parameters ======= \n')
 PCANet
 
@@ -92,4 +92,4 @@ fprintf('\n ===== Results of PCANet, followed by a linear SVM classifier =====')
 fprintf('\n     PCANet training time: %.2f secs.', PCANet_TrnTime);
 fprintf('\n     Average testing error rate: %.2f%%',ErRate*100);
 fprintf('\n     Average testing time %.2f secs per test sample. \n\n',Averaged_TimeperTest);
-save('feret_spcanet_1.mat','PCANet','ErRate');
+save('feret_spcanet_0.3_fixed.mat','PCANet','ErRate');
