@@ -43,7 +43,8 @@ S=[];
 D=[];
 Rx = Rx/(NumRSamples*size(im,2));
 [E D] = eig(Rx);
-[trash ind] = sort((diag(D)),'ascend');
+%[trash ind] = sort((diag(D)),'ascend');
+[trash ind] = sort(abs(diag(D)),'descend');
 % I add some codes for whitening
 
 V = E(:,ind(1:NumFilters));  % principal eigenvectors 
