@@ -34,7 +34,7 @@ PCANet.PatchSize = 7;
 PCANet.NumFilters = [8 8];
 PCANet.HistBlockSize = [15 15]; 
 PCANet.BlkOverLapRatio = 0;
-PCANet.Lamda=0.1;
+PCANet.Lamda=1;
 
 t_num = [5 10 20 30 40 50];
 
@@ -44,7 +44,7 @@ for itr_train = 1:length(t_num)
     F_acc = [];
     F_err = [];
     F_dims = [];
-    for itr = 1:50
+    for itr = 1:5
         DataSplitsAddr = [DataSplitsAddrPre int2str(train_num) 'Train/' int2str(itr) '.mat'];
 
         %fprintf(DataSplitsAddr);
@@ -89,7 +89,7 @@ for itr_train = 1:length(t_num)
             max_dim = (min(size(ftrain))-1);
             dim = max_dim;
 
-            TestData_ImgCell = mat2imgcell(TestData,ImgSize(1),ImgSize(2),ImgFormat); % convert columns in TestData to cells 
+            TestData_ImgCell = mat2imgcell(TestData,ImgSize,ImgSize,ImgFormat); % convert columns in TestData to cells 
             fprintf('\n ====== PCANet Testing ======= \n')
             
             
