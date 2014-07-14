@@ -89,7 +89,7 @@ for itr_train = 1:length(t_num)
             max_dim = (min(size(ftrain))-1);
             dim = max_dim;
 
-            TestData_ImgCell = mat2imgcell(TestData,ImgSize(1),ImgSize(2),ImgFormat); % convert columns in TestData to cells 
+            TestData_ImgCell = mat2imgcell(TestData,ImgSize,ImgSize,ImgFormat); % convert columns in TestData to cells 
             fprintf('\n ====== PCANet Testing ======= \n')
             
             
