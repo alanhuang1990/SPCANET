@@ -51,6 +51,7 @@ tic;
 fprintf('\n ====== PCANet Training ======= \n')
 [ftrain V BlkIdx] = PCANet_train(TrnData_ImgCell,PCANet,1); % BlkIdx serves the purpose of learning block-wise DR projection matrix; e.g., WPCA
 PCANet_TrnTime = toc;
+save(['FERET_manifold_PCA_dfull_' num2str(PCANet.Lamda) '.mat'],'PCANet','V');
 clear TrnData_ImgCell; 
 max_dim = (min(size(ftrain))-1);
 fprintf('Perform PCA on image feature...');
