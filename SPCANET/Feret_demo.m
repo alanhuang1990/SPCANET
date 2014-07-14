@@ -12,7 +12,7 @@ addpath('./Utils');
 addpath('./Liblinear');
 
 
-ImgSize = [150 130]; 
+ImgSize = [130 130]; 
 ImgFormat = 'gray'; %'color' or 'gray'
 
 
@@ -21,14 +21,14 @@ PCANet.NumStages = 2;
 PCANet.PatchSize = 7;
 PCANet.NumFilters = [8 8];
 PCANet.HistBlockSize = [15 15]; 
-PCANet.BlkOverLapRatio = 0;
-PCANet.Lamda = 15;
+PCANet.BlkOverLapRatio = 0.2;
+PCANet.Lamda = 0.1;
 fprintf('\n ====== PCANet Parameters ======= \n')
 PCANet
 
 
 %% Read data for training and testing
-load('../../Feret/gallery.mat'); 
+load('../../Feret/gallery_new.mat'); 
 TrnData_ImgCell = fea;
 TrnLabels = gnd;
 TrnLabels = cell2mat(TrnLabels);
@@ -37,7 +37,7 @@ for i =1:length(TrnData_ImgCell)
     TrnData_ImgCell{i} = double(TrnData_ImgCell{i});
 end
 
-load('../../Feret/dup1.mat');
+load('../../Feret/dup1_new.mat');
 TestData_ImgCell = fea;
 TestLabels = gnd;
 TestLabels = cell2mat(TestLabels);
@@ -59,7 +59,7 @@ dim = max_dim;
 
 %% PCANET Testing
 
-fprintf('\n ====== PCANet Testing ======= \n')
+fprintf('\n ====== PCANet Testing for dup1======= \n')
 nTestImg = length(TestLabels);
 nCorrRecog = 0;
 RecHistory = zeros(nTestImg,1);
@@ -86,10 +86,51 @@ Averaged_TimeperTest = toc/nTestImg;
 Accuracy = nCorrRecog/nTestImg; 
 ErRate = 1 - Accuracy;
 
+ER1 = ErRate;
+
+
+load('../../Feret/dup2_new.mat');
+TestData_ImgCell = fea;
+TestLabels = gnd;
+TestLabels = cell2mat(TestLabels);
+for i =1:length(TestData_ImgCell)
+    TestData_ImgCell{i} = double(TestData_ImgCell{i});
+end
+clear fea gnd;
+
+fprintf('\n ====== PCANet Testing for dup2======= \n')
+nTestImg = length(TestLabels);
+nCorrRecog = 0;
+RecHistory = zeros(nTestImg,1);
+tic; 
+
+for idx = 1:1:nTestImg
+
+    ftest = PCANet_FeaExt(TestData_ImgCell(idx),V,PCANet); % extract a test feature using trained PCANet model 
+    Y_Idx = knnsearch(PCA_ftrain,ftest'*PCA_V,'k',1,'distance','cosine');
+    %Y_Idx = knnsearch(ftrain,ftest','k',1,'distance',@ChiDist);
+    xLabel_est = TrnLabels(Y_Idx);
+    if xLabel_est == TestLabels(idx)
+        RecHistory(idx) = 1;
+        nCorrRecog = nCorrRecog + 1;
+    end
+    if 0==mod(idx,nTestImg/100); 
+        fprintf('Accuracy up to %d tests is %.2f%%; taking %.2f secs per testing sample on average. \n',...
+            [idx 100*nCorrRecog/idx toc/idx]); 
+    end 
+    TestData_ImgCell{idx} = [];
+end
+Averaged_TimeperTest = toc/nTestImg;
+Accuracy = nCorrRecog/nTestImg; 
+ErRate = 1 - Accuracy;
+
+
+ER2 =ErRate;
 
 %% Results display
-fprintf('\n ===== Results of PCANet, followed by a linear SVM classifier =====');
+fprintf('\n ===== Results of PCANet, followed by a NN classifier =====');
 fprintf('\n     PCANet training time: %.2f secs.', PCANet_TrnTime);
-fprintf('\n     Average testing error rate: %.2f%%',ErRate*100);
+fprintf('\n     Average testing error rate: %.2f%%  %.2f%% ',ER1*100,ER2*100);
 fprintf('\n     Average testing time %.2f secs per test sample. \n\n',Averaged_TimeperTest);
-save('feret_spcanet_15.mat','PCANet','ErRate');
+
+save(['FERET_manifold_PCA_dfull_' num2str(PCANet.Lamda) '.mat'],'ER1','ER2','PCANet','V');
